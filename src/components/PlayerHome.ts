@@ -86,9 +86,8 @@ export const PlayerHome = Vue.component("player-home", {
             <preferences v-trim-whitespace></preferences>
 
             <div v-if="player.corporationCard">
-
+                <a name="board" class="player_home_anchor"></a>
                 <div class="player_home_block">
-                    <a name="board" class="player_home_anchor"></a>
                     <board :spaces="player.spaces" :venusNextExtension="player.venusNextExtension" :venusScaleLevel="player.venusScaleLevel" :boardName ="player.boardName"></board>
 
                     <global-parameters :oceans_count="player.oceans" :oxygen_level="player.oxygenLevel" :temperature="player.temperature" v-trim-whitespace></global-parameters>
