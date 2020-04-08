@@ -1774,22 +1774,6 @@ export class Player implements ILoadable<SerializedPlayer, Player>{
         );
       }
 
-      action.options.push(
-          this.passOption(game)
-      );
-
-      if (this.cardsInHand.length > 0) {
-        action.options.push(
-            this.sellPatents(game)
-        );
-      }
-
-      if (game.getPlayers().length > 1 && this.actionsTakenThisRound > 0) {
-        action.options.push(
-            this.endTurnOption(game)
-        );
-      }
-
       if (game.coloniesExtension) {
         let openColonies = game.colonies.filter(colony => colony.isActive && colony.visitor === undefined);
         if (openColonies.length > 0 
@@ -1860,11 +1844,28 @@ export class Player implements ILoadable<SerializedPlayer, Player>{
         action.options.push(remainingAwards);
       }
 
+      if (this.cardsInHand.length > 0) {
+        action.options.push(
+            this.sellPatents(game)
+        );
+      }
+
+      if (game.getPlayers().length > 1 && this.actionsTakenThisRound > 0) {
+        action.options.push(
+            this.endTurnOption(game)
+        );
+      }
+
       // Propose undo action only if you have done one action this turn
       if (this.actionsTakenThisRound > 0) {
         action.options.push(this.undoTurnOption(game));
       }
 
+      action.options.push(
+        this.passOption(game)
+      );
+      
+      /*
       action.options.sort((a, b) => {
         if (a.title > b.title) {
           return 1;
@@ -1873,6 +1874,7 @@ export class Player implements ILoadable<SerializedPlayer, Player>{
         }
         return 0;
       });
+      */
 
       this.setWaitingFor(action, () => {
         this.actionsTakenThisRound++;
